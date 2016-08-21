@@ -35,30 +35,30 @@ var mySwiper = new Swiper('.swiper-container', {
 		if (activeSlide == 0) {
 			yolkColor.animate({backgroundColor: "#ff6600"}, 600);
 			$(".gloss").fadeTo( 600 , 0.6);
-			//startButton.animate({backgroundColor: "#ff6600"}, 600);
+			// startButton.animate({backgroundColor: "#ff6600"}, 600);
 		} 
 		else if (activeSlide == 1) {
 			yolkColor.animate({backgroundColor: "#ff9900"}, 600);
 			$(".gloss").fadeTo( 600 , 0.35);
-			//startButton.animate({backgroundColor: "#ff9900"}, 600);
+			// startButton.animate({backgroundColor: "#ff9900"}, 600);
 		} 
 		else if (activeSlide == 2) {
 			yolkColor.animate({backgroundColor: "#ffcc33"}, 600);
 			$(".gloss").fadeTo( 600 , 0.1);
-			//startButton.animate({backgroundColor: "#ffcc33"}, 600);
+			// startButton.animate({backgroundColor: "#ffcc33"}, 600);
 		}
 		else if (activeSlide == 3) {
 			yolkColor.animate({backgroundColor: "#ffe092"}, 600);
 			$(".gloss").fadeTo( 600 , 0.1);
-			//startButton.animate({backgroundColor: "#ffe092"}, 600);
+			// startButton.animate({backgroundColor: "#ffe092"}, 600);
 		}
 		else {
 			yolkColor.animate({backgroundColor: "#bfb29f"}, 600);
 			$(".gloss").fadeTo( 600 , 0);
-			//startButton.animate({backgroundColor: "#bfb29f"}, 600);
+			// startButton.animate({backgroundColor: "#bfb29f"}, 600);
 		};
-	}
-})
+	};
+});
 
 // Based on the sliders value, what must happen when the "Get Cracking" button is clicked	
 function getCracking() {	
@@ -66,35 +66,35 @@ function getCracking() {
 
 	$("#eggWrapper").fadeOut(1000);
 	
-	var value = $( "#amount" ).html();
+	var value = $("#amount").html();
 		
 	$(".flip-container").addClass("hover"); 
 	$( "#sliderWrapper" ).fadeOut("slow");
 	$(".hardnessWrapper").fadeIn("slow");
 	$("#eggWrapperActive .gloss").fadeTo(100, 1);
 		
-	if ( value == 0 ){
+	if (value == 0){
 		$(".hardnessWrapper").attr("id", "soft");
 		$("#eggWrapperActive .yolkColor").addClass("softFade");	
 		$(".time").attr("id", "countdown1");
 		countdown("countdown1", 0, 3);
 		$("#eggWrapperActive .gloss").fadeOut(3000);
 	}
-	else if ( value == 1 ){
+	else if (value == 1){
 		$(".hardnessWrapper").attr("id", "softMedium");
 		$("#eggWrapperActive .yolkColor").addClass("softMediumFade")
 		$(".time").attr("id", "countdown2");
 		countdown("countdown2", 6, 30);
 		$("#eggWrapperActive .gloss").fadeOut(300000);
 	}
-	else if ( value == 2 ){
+	else if (value == 2){
 		$(".hardnessWrapper").attr("id", "medium");
 		$("#eggWrapperActive .yolkColor").addClass("mediumFade")
 		$(".time").attr("id", "countdown3");
 		countdown("countdown3", 7, 30);
 		$("#eggWrapperActive .gloss").fadeOut(300000);
 	}
-	else if ( value == 3 ){
+	else if (value == 3){
 		$(".hardnessWrapper").attr("id", "mediumHard");
 		$("#eggWrapperActive .yolkColor").addClass("mediumHardFade")
 		$(".time").attr("id", "countdown4");
@@ -108,22 +108,21 @@ function getCracking() {
 		countdown("countdown5", 0, 10);
 		$("#eggWrapperActive .gloss").fadeOut(8000);
 	};
-	
 };
 		
 // Start countdown timer
-function countdown( elementName, minutes, seconds ) {
+function countdown(elementName, minutes, seconds) {
 	var element, endTime, hours, mins, msLeft, time;
 
 	function twoDigits(n) {
 		return (n <= 9 ? "0" + n : n);
-	}
+	};
 
 	function updateTimer() {
 		msLeft = endTime - (+new Date);
 		
 		//when timer has run down to 0:00		
-		if ( msLeft < 1000 ) {
+		if (msLeft < 1000) {
 						
 			element.innerHTML = "0:00";
 			
@@ -145,8 +144,8 @@ function countdown( elementName, minutes, seconds ) {
 			mins = time.getUTCMinutes();
 			element.innerHTML = (hours ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time.getUTCSeconds());
 			clock = setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
-		}
-	}
+		};
+	};
 
 	element = document.getElementById(elementName);
 	endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
@@ -158,10 +157,9 @@ function countdown( elementName, minutes, seconds ) {
 		
 		$("#eggWrapper").fadeIn(1000);
 		
-		// Stop the timer in its tracks
 		$(".flip-container").removeClass("hover");
 		
-		clearTimeout(clock);
+		clearTimeout(clock); // Stop the timer in its tracks
 		
 		$(".hardnessWrapper").fadeOut("slow");
 		$("#sliderWrapper").fadeIn("slow");
@@ -172,12 +170,12 @@ function countdown( elementName, minutes, seconds ) {
 		},1100);
 	});
 	
-	// Time's Up --- Now do this when clicking "Done"
+	// Time's Up - Now do this when clicking "Done"
 	$(".closeAll").click(function(){
 		endClick.play(); 
 		$(".flip-container").removeClass("hover");
 		
-		clearTimeout(clock);
+		clearTimeout(clock); // Stop the timer in its tracks
 		
 		$("#eggWrapper").fadeIn(1000);
 		$(".hardnessWrapper").fadeOut("slow");

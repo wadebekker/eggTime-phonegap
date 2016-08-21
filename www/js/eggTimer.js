@@ -57,7 +57,7 @@ var mySwiper = new Swiper('.swiper-container', {
 			$(".gloss").fadeTo( 600 , 0);
 			// startButton.animate({backgroundColor: "#bfb29f"}, 600);
 		};
-	};
+	}
 });
 
 // Based on the sliders value, what must happen when the "Get Cracking" button is clicked	
