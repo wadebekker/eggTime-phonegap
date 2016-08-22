@@ -2,6 +2,7 @@ $(function() {
     FastClick.attach(document.body);
 });
 
+
 // Load in sound clips
 var click = new Audio("sounds/click.wav");
 var startClick = new Audio("sounds/start-click.wav");
@@ -9,10 +10,61 @@ var endClick = new Audio("sounds/end-click.wav");
 var wobble = new Audio("sounds/wobble.wav");
 var complete = new Audio("sounds/complete.wav");
 
+var globalVibrate = true;
+
 // After 4 seconds remove these classes so that the slider no longer wobbles
 setTimeout(function(){
 	$( ".swiper-container" ).removeClass("animated bounce"); 
 },4000);
+
+$(".trigger").click(function(){
+	click.play();
+	$(this).toggleClass("active")
+	$("#tray").toggleClass("active").fadeToggle(300);
+	// $("#tray p.lead, #tray p.smaller").addClass("animated bounceInDown");
+});
+
+
+$(".sound-toggle").click(function(){
+	$(this).toggleClass("isActive");
+
+	if ($(this).hasClass("isActive")) {
+		console.log('sound on');
+		click.play();
+		click.volume = 1;
+		startClick.volume = 1;
+		endClick.volume = 1;
+		wobble.volume = 1;
+		complete.volume = 1;
+		return [click.volume, startClick.volume, endClick.volume, wobble.volume, complete.volume];
+	}
+	else {
+		console.log('sound off');
+		click.volume = 0;
+		startClick.volume = 0;
+		endClick.volume = 0;
+		wobble.volume = 0;
+		complete.volume = 0;
+
+		return [click.volume, startClick.volume, endClick.volume, wobble.volume, complete.volume];
+	}
+});
+
+$(".vibration-toggle").click(function(){
+	click.play();
+	$(this).toggleClass("isActive");
+
+	if ($(this).hasClass("isActive")) {
+		console.log('vibrate on');
+		globalVibrate = true;
+		return globalVibrate;
+	}
+	else {
+		console.log('vibrate off');
+		globalVibrate = false;
+		return globalVibrate;
+	}
+});
 
 // Set up the Slider and then animate yolks color based on index of the slider
 var mySwiper = new Swiper('.swiper-container', {
@@ -57,21 +109,27 @@ var mySwiper = new Swiper('.swiper-container', {
 			$(".gloss").fadeTo( 600 , 0);
 			// startButton.animate({backgroundColor: "#bfb29f"}, 600);
 		};
-	};
+	}
 });
 
 // Based on the sliders value, what must happen when the "Get Cracking" button is clicked	
 function getCracking() {	
 	startClick.play();
 
-	$("#eggWrapper").fadeOut(1000);
+	console.log('globalVibrate:', globalVibrate);
+
+	// $("#eggWrapper").fadeOut(1000);
+	$("#eggWrapperActive").fadeIn(200);
 	
 	var value = $("#amount").html();
 		
-	$(".flip-container").addClass("hover"); 
-	$( "#sliderWrapper" ).fadeOut("slow");
-	$(".hardnessWrapper").fadeIn("slow");
-	$("#eggWrapperActive .gloss").fadeTo(100, 1);
+	// $(".flip-container").addClass("hover"); 
+	$("#sliderWrapper").fadeOut("slow");
+	$(".wrapperStart").fadeOut("slow");
+	$(".wrapperCancel").fadeIn(200);
+	$("#timeWrapper").fadeIn("slow");
+	$("#eggWrapperActive .gloss").fadeTo(100, 0.7);
+
 		
 	if (value == 0){
 		$(".hardnessWrapper").attr("id", "soft");
@@ -85,21 +143,21 @@ function getCracking() {
 		$("#eggWrapperActive .yolkColor").addClass("softMediumFade")
 		$(".time").attr("id", "countdown2");
 		countdown("countdown2", 6, 30);
-		$("#eggWrapperActive .gloss").fadeOut(300000);
+		$("#eggWrapperActive .gloss").fadeOut(3000);
 	}
 	else if (value == 2){
 		$(".hardnessWrapper").attr("id", "medium");
 		$("#eggWrapperActive .yolkColor").addClass("mediumFade")
 		$(".time").attr("id", "countdown3");
 		countdown("countdown3", 7, 30);
-		$("#eggWrapperActive .gloss").fadeOut(300000);
+		$("#eggWrapperActive .gloss").fadeOut(3000);
 	}
 	else if (value == 3){
 		$(".hardnessWrapper").attr("id", "mediumHard");
 		$("#eggWrapperActive .yolkColor").addClass("mediumHardFade")
 		$(".time").attr("id", "countdown4");
 		countdown("countdown4", 8, 30);
-		$("#eggWrapperActive .gloss").fadeOut(300000);
+		$("#eggWrapperActive .gloss").fadeOut(3000);
 	}
 	else {
 		$(".hardnessWrapper").attr("id", "hard");
@@ -130,12 +188,17 @@ function countdown(elementName, minutes, seconds) {
 			setTimeout(function(){
 				$("#eggWrapperActive").addClass("shake");
 			}, 500);
+
+			setTimeout(function(){
+				complete.play();	
+			},1000);
 			
 			setTimeout(function(){
-				complete.play();
-				navigator.vibrate(300);
-				$("#popup").addClass("bounceIn");
-				
+				if (globalVibrate) {
+					navigator.vibrate(300);
+				}
+				$("#popup").fadeIn(200);
+				$("#popup #inner").addClass("bounceIn");	
 			},1500);
 		}
 		else {
@@ -155,17 +218,21 @@ function countdown(elementName, minutes, seconds) {
 	$(".cancelButton").click(function(){
 		endClick.play();
 		
-		$("#eggWrapper").fadeIn(1000);
+		$("#eggWrapperActive").fadeOut(200);
+		// $("#eggWrapper").fadeIn(1000);
 		
-		$(".flip-container").removeClass("hover");
+		// $(".flip-container").removeClass("hover");
 		
 		clearTimeout(clock); // Stop the timer in its tracks
 		
-		$(".hardnessWrapper").fadeOut("slow");
+		$("#timeWrapper").fadeOut("slow");
 		$("#sliderWrapper").fadeIn("slow");
+		$(".wrapperStart").fadeIn(100);
+		$(".wrapperCancel").fadeOut("slow");
 				
 		setTimeout(function(){
-			$("#popup").fadeOut("slow").removeClass("bounceIn");
+			$("#popup").fadeOut("slow");
+			$("#popup #inner").fadeOut("slow").removeClass("bounceIn");
 			$(".yolkColor").removeClass("softFade softMediumFade mediumFade mediumHardFade hardFade");
 		},1100);
 	});
@@ -173,19 +240,25 @@ function countdown(elementName, minutes, seconds) {
 	// Time's Up - Now do this when clicking "Done"
 	$(".closeAll").click(function(){
 		endClick.play(); 
-		$(".flip-container").removeClass("hover");
+		// $(".flip-container").removeClass("hover");
 		
 		clearTimeout(clock); // Stop the timer in its tracks
 		
-		$("#eggWrapper").fadeIn(1000);
-		$(".hardnessWrapper").fadeOut("slow");
+		$("#eggWrapperActive").fadeOut(200);
+		// $("#eggWrapper").fadeIn(1000);
+
+		$("#timeWrapper").fadeOut("slow");
 		$("#eggWrapperActive").removeClass("shake");
 		$("#sliderWrapper").fadeIn("slow");
+		$(".wrapperStart").fadeIn(100);
+		$(".wrapperCancel").fadeOut("slow");
+		$("#popup #inner").removeClass("bounceIn");
 		
-		setTimeout(function(){
-			$("#popup").fadeOut("slow").removeClass("bounceIn");
-			$(".yolkColor").removeClass("softFade softMediumFade mediumFade mediumHardFade hardFade");
-		},1100);
+		
+		$("#popup").fadeOut("slow");
+		$("#popup #inner").fadeOut("slow").removeClass("bounceIn");
+		$(".yolkColor").removeClass("softFade softMediumFade mediumFade mediumHardFade hardFade");
+		
 	});	
 };
 

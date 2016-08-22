@@ -42,105 +42,104 @@
         <title>eggTime</title>
     </head>
     <body>
-        <div id="logo"></div>
-        
-    	<!-- EDIT HTML INSIDE HERE -->
-        <div class="flip-container">
-            <div class="flipper">
-                
-                <div class="front">
 
-                    <!--
-                    <div class="getPosition" style="width:40px; height:40px; background:#000; display:block; position: absolute; top: 10px; right: 10px; z-index:2;"></div>
-                    -->
+    <div class="trigger">
+        <span></span>
+        <span></span>
+    </div>
 
-                    <div style="width: 100%; height: 200px; position: fixed; top: 50%; left: 0; margin: -195px 0 0 0;">
-                        <!-- The egg goes here -->
-                        <div id="eggWrapper">
-                            <div class="eggWhite">
-                                <div class="yolkColor">
-                                    <div class="gloss"></div>
-                                    <div class="highlight"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Slider goes here -->    
-                    <div id="sliderWrapper">
-                        <div class="triangle"></div>
-                        <div class="shadow"></div>
-                        <div class="swiper-container animated bounce">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="orange-marker"></div>
-                                    <div class="title">Soft</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="grey-marker"></div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="orange-marker"></div>
-                                    <div class="title">Medium</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="grey-marker"></div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="orange-marker"></div>
-                                    <div class="title">Hard</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div id="tray">
+        <p class="lead">EggTime is a fun app designed to simply help you to achive the perfect boiled egg.</p>
+        <p class="smaller">A little more info to go here that will explain the theory any terms.</p>
+        <button type="button" class="toggle sound-toggle isActive">Sound</button>
+        <button type="button" class="toggle vibration-toggle isActive">Vibration</button>
+        <p class="version">Version 1.0.0</p>
+    </div>
 
-                    <div id="amount" style="display:none;">2</div> 
-                    <div class="buttonWrapper">
-                        <button type="submit" class="startButton" onclick="getCracking()">Start</button>
-                    </div>
+    <div id="logo"></div>
+
+    <div id="appWrap">
+        <!-- The egg goes here -->
+        <div id="eggWrapper" style="width: 100%; height: 200px; position: fixed; top: 50%; left: 0; margin: -195px 0 0 0;">
+            <div class="eggWhite">
+                <div class="yolkColor">
+                    <div class="gloss"></div>
+                    <div class="highlight"></div>
                 </div>
-                <div class="back">
-                    
-                    <div style="width: 100%; height: 430px; position: fixed; top: 50%; left: 0; margin: -270px 0 0 0;">
-                        <!-- The egg goes here -->
-                        <div id="eggWrapperActive" class="animated ">
-                            <div class="eggWhite">
-                                <div class="yolkColor">
-                                    <div class="gloss"></div>
-                                    <div class="highlight"></div>
-                                </div>
-                            </div>
-                            <div id="eggShadow"></div>
-                        </div>  
-                          
-                        <!-- countdown screen here -->
-                        <div class="hardnessWrapper">
-                            <div class="time"></div>
-                        </div>
+            </div>
+        </div>
+            
+        <!-- Slider goes here -->    
+        <div id="sliderWrapper">
+            <div class="triangle"></div>
+            <div class="shadow"></div>
+            <div class="swiper-container animated bounce">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="orange-marker"></div>
+                        <div class="title">Soft</div>
                     </div>
-                    <div class="buttonWrapper">
-                        <button type="submit" class="cancelButton">Cancel</button>
+                    <div class="swiper-slide">
+                        <div class="grey-marker"></div>
                     </div>
-                    
-                    <div id="popup" class="animated ">
-                        <div id="black"></div>
-                        <div style="width:100%; height:160px; color:#FFF; z-index:3; position:absolute; top:50%; left:0; margin:-80px 0 0 0; text-align:center;">
-                            <h1>Time's Up!</h1>
-                            <p>Crack em' open and enjoy!</p>
-                        </div>
-                        <div class="buttonWrapper done">
-                            <button class="closeAll doneButton">Done</button>
-                        </div>
+                    <div class="swiper-slide">
+                        <div class="orange-marker"></div>
+                        <div class="title">Medium</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="grey-marker"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="orange-marker"></div>
+                        <div class="title">Hard</div>
                     </div>
                 </div>
             </div>
-        </div> 	
+        </div>
+
+        <div id="amount" style="display:none;">2</div> 
         
-        <script src="js/idangerous.swiper-2.1.min.js"></script>
-		<script src="js/eggTimer.js"></script>
-        <!-- ...AND HERE... -->
+        <div class="buttonWrapper wrapperStart">
+            <button type="submit" class="startButton" onclick="getCracking()">Start</button>
+        </div>
+            
+        <!-- The egg goes here -->
+        <div id="eggWrapperActive" class="animated " style="width: 100%; height: 200px; position: fixed; top: 50%; left: 0; margin: -195px 0 0 0;">
+            <div class="eggWhite">
+                <div class="yolkColor">
+                    <div class="gloss"></div>
+                    <div class="highlight"></div>
+                </div>
+            </div>
+            <div id="eggShadow"></div>
+        </div>
+        
+        <!-- countdown screen here -->
+        <div id="timeWrapper" style="width: 100%; position: fixed; top: 50%; left: 0; z-index: 2; display: none; margin: 40px 0 0 0;">
+            <div class="hardnessWrapper">
+                <div class="time"></div>
+            </div>
+        </div>
+
+
+        <div class="buttonWrapper wrapperCancel">
+            <button type="submit" class="cancelButton">Cancel</button>
+        </div>
+        
+        <div id="popup">
+            <div id="black"></div>
+            <div style="width:300px; height:206px; color:#222; z-index:3; position:absolute; top:50%; left:50%; margin:-103px 0 0 -150px; text-align:center; background: #fff; border-radius: 10px; padding: 20px; box-sizing: border-box;" id="inner" class="animated ">
+                <h1>Time's Up!</h1>
+                <p style="margin-bottom: 30px;">Crack em' open and enjoy!</p>
+                <button class="closeAll doneButton">Done</button>
+            </div>
+        </div>
+    </div>
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+
+        <script src="js/idangerous.swiper-2.1.min.js"></script>
+        <script src="js/eggTimer.js"></script>
     </body>
 </html>

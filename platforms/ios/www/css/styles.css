@@ -9,6 +9,11 @@ html, body { height:100%; }
   src: url('../fonts/Dosis-SemiBold.ttf');
 }
 
+@font-face {
+  font-family: "DosisRegular";
+  src: url('../fonts/Dosis-Regular.ttf');
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -37,6 +42,196 @@ h1 {
 	line-height:44px; 
 	font-weight:400; }
 
+.trigger {
+	width: 60px; 
+	height: 60px;
+	box-sizing: border-box;
+	padding: 28px 20px 0 20px; 
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	z-index: 4;
+}
+
+	.trigger span {
+		width: 20px;
+		height: 2px;
+		margin: 0 0 5px 0;
+		background: #666;
+		border-radius: 1px;
+		display: block;
+		transition: all 0.2s ease-out;
+		box-shadow: 0 1px 1px rgba(0,0,0,0.75);
+	}
+
+	.trigger:active span {
+		transition: all 0.1s ease-out;
+		background: #444;
+	}
+
+	.trigger.active span:first-of-type {
+		margin: 3px 0 0 0;
+		-webkit-transform: rotate(45deg);
+		transform: rotate(45deg);
+		box-shadow: 0 1px 1px rgba(0,0,0,0);
+		background: #ff6600;
+	}
+
+	.trigger.active span:last-of-type {
+		margin: -2px 0 0 0;
+		-webkit-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+		box-shadow: 0 1px 1px rgba(0,0,0,0);
+		background: #ff6600;
+	}
+
+	.trigger.active:active span:first-of-type,
+	.trigger.active:active span:last-of-type {
+		transition: all 0.1s ease-out;
+		background-color: #cc5200;
+	}
+
+
+#tray {
+	width: 100%; 
+	height: 100%; 
+	padding: 70px 20px 20px 20px;
+	background: rgba(0,0,0,0.95); 
+	position: fixed; 
+	top: 0; 
+	left: 0;
+	z-index: 3; 
+	box-sizing: border-box;
+	border-right: 1px solid #111;
+	display: none;
+}
+
+#tray.active {
+}
+
+	#tray p {
+		margin: 0 0 20px 0;
+	}
+
+	#tray p.smaller {
+		font-size: 16px;
+		line-height: 21px;
+		font-family: 'DosisRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+
+	#tray p.version {
+		position: fixed; 
+		bottom: 18px; 
+		left: 0; width: 100%; 
+		text-align: center; 
+		margin: 0; 
+		color: #666; 
+		font-size: 12px; 
+		line-height: 12px;
+	}
+
+
+.toggle,
+.toggle:focus,
+.toggle:hover,
+.toggle:hover:active,
+.toggle:active {
+	margin: 0 0 10px 0;
+ 	padding: 0 0 0 82px;
+	line-height: 38px;
+	position: relative;
+	background: none;
+	color: #fff !important;
+	border: none;
+	display: block;
+	font-family: 'Dosis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 15px;
+}
+  
+.toggle.isActive {
+  display: block;
+}
+
+  .toggle:before {
+    content: "";
+    width: 34px;
+    height: 34px;
+    background: rgba(255,255,255,1);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 2;
+    transform: translateX(0px);
+    
+    transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -ms-transition: all 0.35s ease;
+  }
+
+  .toggle.isActive:before {
+    content: "";
+    width: 34px;
+    height: 34px;
+    background: rgba(255,255,255,1);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 2;
+    transform: translateX(32px);
+  }
+
+  .toggle:active:after {
+    background: rgba(159,166,170,1);
+  }
+
+  .toggle:after {
+    content: "";
+    width: 70px;
+    height: 38px;
+    background: #555;
+    border-radius: 21px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -ms-transition: all 0.35s ease;
+  }
+
+  .toggle.isActive:after {
+    content: "";
+    width: 70px;
+    height: 38px;
+    background: #ff6600 !important;
+    border-radius: 21px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+
+
+#appWrap {
+	position: relative; 
+	width: 100%; 
+	height: 100%; 
+	box-sizing: border-box; 
+	transform: translate(0, 0); 
+	transition: all 0.35s ease-out;
+	z-index: 2;
+}
+#appWrap.active {
+	transform: translate(80%, 0);
+}
+
 #logo {
 	width: 110px; 
 	height: 26px;
@@ -46,7 +241,7 @@ h1 {
 	position: fixed; 
 	top: 20px; 
 	left: 50%;
-	z-index: 2;
+	z-index: 4;
 }
 	
 
@@ -106,11 +301,13 @@ h1 {
 .back {
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg); /* Chrome, Safari, Opera */
-	background:#222;
+	background:transparent;
 }
 		
 #eggWrapper,
 #eggWrapperActive { padding: 0; }
+
+#eggWrapperActive { display: none; }
 
 	.eggWhite {
 		display:block; 
@@ -157,7 +354,7 @@ h1 {
 			}
 	
 
-.hardnessWrapper { display:none; }
+/* .hardnessWrapper { display:none; } */
 
 .buttonWrapper {
 	position:absolute; 
@@ -175,18 +372,18 @@ h1 {
 
 	.buttonWrapper .startButton,
 	.buttonWrapper .cancelButton,
-	.buttonWrapper .doneButton {
+	.doneButton,
+	.closeButton {
 		display:block; 
 		width:100%; 
 		background:#FF6600; 
 		line-height:54px; 
 		color:rgba(255,255,255,1); 
 		padding:0; 
-		font-family: 'Dosis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-family:'Dosis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		text-align:center; 
-		text-transform:uppercase; 
 		text-decoration:none; 
-		font-size:20px; 
+		font-size:22px; 
 		border-radius:27px; 
 		border:none; 
 		cursor:pointer;
@@ -195,21 +392,32 @@ h1 {
 		outline: none;
 	}
 	
-	.buttonWrapper .startButton:active { background:#E54600; }
+	.buttonWrapper .startButton:active,
+	.doneButton:active,
+	.closeButton:active { background:#E54600; }
 
 	.buttonWrapper .cancelButton { background:#FF0000; }
 	.buttonWrapper .cancelButton:active	{ background:#CC0000; }
-	
-	.buttonWrapper .doneButton { background:#33cc33; }
-	.buttonWrapper .doneButton:active { background:#159b15; }
 
 	.buttonWrapper .startButton:active,
 	.buttonWrapper .cancelButton:active,
-	.buttonWrapper .doneButton:active {
+	.doneButton:active {
 		color:rgba(255,255,255,0.75);
 		box-shadow:0 0 0 rgba(0,0,0,1);
 	}
 
+	.doneButton {
+		box-shadow: none;
+	}
+
+	.doneButton:active {
+		margin-top: 31px;
+	}
+
+
+.wrapperCancel {
+	display: none;
+}
 
 #sliderWrapper { 
 	width: 100%;
@@ -233,11 +441,11 @@ h1 {
 	
 		
 .time {
-	padding:80px 0; 
-	font-size:60px; 
+	padding:0; 
+	font-size:100px; 
+	line-height: 100px;
 	text-align:center;
-	text-shadow:0 1px 0 rgba(0,0,0,1);
-	font-weight:300; 
+	text-shadow:0 1px 4px rgba(0,0,0,1);
 }
 	
 	
