@@ -30,23 +30,42 @@ $(".sound-toggle").click(function(){
 
 	if ($(this).hasClass("isActive")) {
 		console.log('sound on');
+
+		click = new Audio("sounds/click.wav");
+		startClick = new Audio("sounds/start-click.wav");
+		endClick = new Audio("sounds/end-click.wav");
+		wobble = new Audio("sounds/wobble.wav");
+		complete = new Audio("sounds/complete.wav");
+
 		click.play();
+
+		/*
 		click.volume = 1;
 		startClick.volume = 1;
 		endClick.volume = 1;
 		wobble.volume = 1;
 		complete.volume = 1;
-		return [click.volume, startClick.volume, endClick.volume, wobble.volume, complete.volume];
+		*/
+		return [click, startClick, endClick, wobble, complete];
 	}
 	else {
 		console.log('sound off');
+		click = new Audio();
+		startClick = new Audio();
+		endClick = new Audio();
+		wobble = new Audio();
+		complete = new Audio();
+
+
+		/*
 		click.volume = 0;
 		startClick.volume = 0;
 		endClick.volume = 0;
 		wobble.volume = 0;
 		complete.volume = 0;
+		*/
 
-		return [click.volume, startClick.volume, endClick.volume, wobble.volume, complete.volume];
+		return [click, startClick, endClick, wobble, complete];
 	}
 });
 
